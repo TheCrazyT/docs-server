@@ -1,0 +1,46 @@
+== Release 7.6.6 (February 2025)
+
+Couchbase Server 7.6.6 was released in February 2025.
+This maintenance release contains fixes several for known issues.
+
+For detailed information on new features and enhancements, see xref:introduction:whats-new.adoc[].
+
+[#known-issues-766]
+== Known Issues
+
+=== Query Service
+
+[#table-known-issues-765-query-service,cols="10,40,40"]
+|===
+|Issue | Description | Workaround
+
+| https://jira.issues.couchbase.com/browse/MB-64966[MB-64966]
+| Scope level user-defined functions, sequences, and histogram data are stored in `bucket/_system/_query` collection. 
+
+``FLUSH``ing the bucket will delete the scoped UDF entries. 
+When the UDFs are executed, it will work until the UDFs are evicted from the cache.
+After that, it will always result in an error.
+
+Sequences metadata is also stored in `bucket/_system/_query` collection. 
+FLUSHing the bucket will delete the entries. When executed, sequences will return errors once evicted from the cache.
+
+``FLUSH``ing the bucket will also delete statistics data stored in the `bucket/_system/_query` collection.
+ By using stale statistics stored in the cache, a non-optimal plan could be generated.
+
+
+a| For user-defined functions, you can do one of the following:
+
+* Recreate the scoped user-defined functions after the `FLUSH`.
+* Use global UDFs instead of scoped UDFs. (Global UDFs are not stored in the `_query` collection.)
+* Create scoped UDFs on the bucket that does not have FLUSH enabled and then reference them via a fully qualified name (`bucket.scope.UDFname`).
+
+For sequence metadata:
+
+* After the `FLUSH`, recreate the sequence, or
+* Create sequences on the bucket that does not have FLUSH enabled and then reference them via a fully qualified name (`bucket.scope.UDFname`).
+
+For statistical data, rerun `UPDATE STATISTICS` on all the indexes on every scope and collections in the bucket that was flushed.
+
+
+|===
+
