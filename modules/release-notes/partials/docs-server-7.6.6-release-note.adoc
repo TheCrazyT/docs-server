@@ -5,6 +5,26 @@ This maintenance release contains fixes several for known issues.
 
 For detailed information on new features and enhancements, see xref:introduction:whats-new.adoc[].
 
+[#fixed-issues-766]
+=== Fixed Issues
+
+This release contains the following fixes:
+
+
+==== Data Service
+
+[#table-fixed-issues-766-data-service,cols="10,40,40"]
+|===
+|Issue | Description | Resolution
+
+| https://jira.issues.couchbase.com/browse/MB-63827[MB-63827]
+| DCP connection metrics for connection names that do not conform to the server format are not aggregated by connection type when exposing to Prometheus, potentially producing a large number of time series.
+
+| The metrics are aggregated and exposed with `connection_type="_unknown"`.
+
+
+|===
+
 [#known-issues-766]
 == Known Issues
 
