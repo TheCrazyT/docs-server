@@ -8,23 +8,8 @@
 
 For information about platform support changes, deprecation notifications, notable improvements, and fixed and known issues, refer to the xref:release-notes:relnotes.adoc[Release Notes].
 
-[#new-features-764]
-== New Features and Enhancements in 7.6.4
 
-The following new features are provided in this release
-
+include::partial$new_features-76_6.adoc[]
 include::partial$new_features-76_4.adoc[]
-
-[#new-features-762]
-== New Features and Enhancements in 7.6.2
-
-The following new features are provided in this release.
-
 include::partial$new-features-76_2.adoc[]
-
-[#new-features]
-== New Features and Enhancements in 7.6.0
-
-The following new features are provided in this release.
-
 include::partial$new-features-76.adoc[]
